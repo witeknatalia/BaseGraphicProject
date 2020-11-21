@@ -27,14 +27,16 @@ void SimpleShapeApplication::init() {
             -0.2, -0.2, 0.0, 0.0, 1.0, 0.0,
             0.2, -0.2, 0.0, 0.0, 1.0, 0.0,
             -0.2, 0.2, 0.0, 0.0, 1.0, 0.0,
-            0.2, 0.2, 0.0, 0.0, 1.0, 0.0,
+            0.2, 0.2, 0.0, 1.0, 0.0, 0.0,
             0.0, 0.7, 0.0, 1.0, 0.0, 0.0,
             -0.2, 0.2, 0.0, 1.0, 0.0, 0.0,
-            0.2, 0.2, 0.0, 1.0, 1.0, 0.0,
+            0.2, 0.2, 0.0, 0.0, 1.0, 0.0,
     };
 
     std::vector<GLushort> indices = {
-            0,1,2,1,3,2,4,5,6
+            0, 1, 2,
+            3, 4, 5,
+            6, 2, 1
     };
 
     GLuint idx_buffer_handle;
@@ -44,6 +46,7 @@ void SimpleShapeApplication::init() {
                  GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+
     GLuint v_buffer_handle;
     glGenBuffers(1, &v_buffer_handle);
     glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle);
@@ -52,13 +55,16 @@ void SimpleShapeApplication::init() {
 
 
     glGenVertexArrays(1, &vao_);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idx_buffer_handle);
     glBindVertexArray(vao_);
     glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idx_buffer_handle);
+
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(0));
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(0));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(3*sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(3*sizeof(GLfloat)));
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
@@ -74,6 +80,6 @@ void SimpleShapeApplication::init() {
 
 void SimpleShapeApplication::frame() {
     glBindVertexArray(vao_);
-    glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, NULL);
+    glDrawElements(GL_TRIANGLES, 3 * 3, GL_UNSIGNED_INT, NULL);
     glBindVertexArray(0);
 }

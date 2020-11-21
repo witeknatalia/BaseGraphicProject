@@ -27,10 +27,12 @@ void SimpleShapeApplication::init() {
             -0.2, -0.2, 0.0, 0.0, 1.0, 0.0,
             0.2, -0.2, 0.0, 0.0, 1.0, 0.0,
             -0.2, 0.2, 0.0, 0.0, 1.0, 0.0,
-            0.2, 0.2, 0.0, 0.0, 1.0, 0.0,
+            0.2, 0.2, 0.0, 1.0, 0.0, 0.0,
             0.0, 0.7, 0.0, 1.0, 0.0, 0.0,
             -0.2, 0.2, 0.0, 1.0, 0.0, 0.0,
-            0.2, 0.2, 0.0, 1.0, 1.0, 0.0,
+            0.2, 0.2, 0.0, 0.0, 1.0, 0.0,
+            -0.2, 0.2, 0.0, 0.0, 1.0, 0.0,
+            0.2, -0.2, 0.0, 0.0, 1.0, 0.0,
     };
 
 
@@ -45,9 +47,11 @@ void SimpleShapeApplication::init() {
     glBindVertexArray(vao_);
     glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(0));
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(0));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(3*sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(3*sizeof(GLfloat)));
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
@@ -63,6 +67,6 @@ void SimpleShapeApplication::init() {
 
 void SimpleShapeApplication::frame() {
     glBindVertexArray(vao_);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 9);
     glBindVertexArray(0);
 }
