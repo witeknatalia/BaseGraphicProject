@@ -34,9 +34,7 @@ void SimpleShapeApplication::init() {
     };
 
     std::vector<GLushort> indices = {
-            0, 1, 2,
-            3, 4, 5,
-            6, 2, 1
+            0, 1, 2, 3, 4, 5, 6, 2, 1
     };
 
     GLuint idx_buffer_handle;
@@ -80,6 +78,6 @@ void SimpleShapeApplication::init() {
 
 void SimpleShapeApplication::frame() {
     glBindVertexArray(vao_);
-    glDrawElements(GL_TRIANGLES, 3 * 3, GL_UNSIGNED_INT, NULL);
+    glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
 }
