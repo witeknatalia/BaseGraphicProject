@@ -10,6 +10,8 @@
 
 
 #include "Application/utils.h"
+#include <glm/glm.hpp>
+
 
 void SimpleShapeApplication::init() {
 
@@ -57,8 +59,10 @@ void SimpleShapeApplication::init() {
     glBindBuffer(GL_UNIFORM_BUFFER, ubo_handle);
     glBufferData(GL_UNIFORM_BUFFER, 8 * sizeof(float), nullptr, GL_STATIC_DRAW);
     float s = 0.5;
+    glm::vec3 color(1.0, 1.0, 1.0);
 
     glBufferSubData(GL_UNIFORM_BUFFER, 0, 1 * sizeof(float), &s);
+    glBufferSubData(GL_UNIFORM_BUFFER, 4 * sizeof(float), 3 * sizeof(float), &color);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo_handle);
 

@@ -60,8 +60,10 @@ void SimpleShapeApplication::init() {
     glBindBuffer(GL_UNIFORM_BUFFER, ubo_handle);
     glBufferData(GL_UNIFORM_BUFFER, 8 * sizeof(float), nullptr, GL_STATIC_DRAW);
     float s = 0.5;
+    glm::vec3 color(1.0, 1.0, 1.0);
 
     glBufferSubData(GL_UNIFORM_BUFFER, 0, 1 * sizeof(float), &s);
+    glBufferSubData(GL_UNIFORM_BUFFER, 4 * sizeof(float), 3 * sizeof(float), &color);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo_handle);
 
@@ -87,6 +89,14 @@ void SimpleShapeApplication::init() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
+    auto u_transform_index = glGetUniformBlockIndex(program, "Transformations");
+    if (u_transform_index == GL_INVALID_INDEX)
+    {
+        std::cout << "Cannot find Modifiers uniform block in program" << std::endl;
+    } else {
+        glUniformBlockBinding(program, u_transform_index, 1);
+    }
+
     int w, h;
     std::tie(w, h) = frame_buffer_size();
 
@@ -99,10 +109,12 @@ void SimpleShapeApplication::init() {
     auto P = glm::perspective(glm::half_pi<float>() / 2.0f,
                               (float) w /h,
                               0.1f,
-                              100.0f);
+                              10.0f);
     auto PVM = P * V * M;
+    
     glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), &PVM[0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, 1, sizeof(glm::mat4), &PVM[0]);
+
 
     glClearColor(0.81f, 0.81f, 0.8f, 1.0f);
     glViewport(0, 0, w, h);
