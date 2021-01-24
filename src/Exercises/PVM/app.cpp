@@ -71,7 +71,7 @@ void SimpleShapeApplication::init() {
     GLuint v_buffer_handle;
     glGenBuffers(1, &v_buffer_handle);
     glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
@@ -99,19 +99,18 @@ void SimpleShapeApplication::init() {
     }
 
     GLuint u_buffer_handle;
-    glGenBuffers(2, &u_buffer_handle);
-    glBindBuffer(GL_ARRAY_BUFFER, u_buffer_handle);
-
-
-
+    glGenBuffers(1, &u_buffer_handle);
+    glBindBuffer(GL_UNIFORM_BUFFER, u_buffer_handle);
+    glBindBufferBase(GL_UNIFORM_BUFFER, u_buffer_handle, 1);
+    
 
     int w, h;
     std::tie(w, h) = frame_buffer_size();
 
     glm::mat4 M(1.0f);
-    auto V = lookAt(glm::vec3{0.0, 0.0, 0.2},
+    auto V = lookAt(glm::vec3{1.0, 1.0, 1.2},
                     glm::vec3{0.0f, 0.0f, 0.0f},
-                    glm::vec3{0.0, 1.0, 1.0}
+                    glm::vec3{1.0, 1.0, 1.0}
     );
 
     auto P = glm::perspective(glm::half_pi<float>() / 2.0f,
