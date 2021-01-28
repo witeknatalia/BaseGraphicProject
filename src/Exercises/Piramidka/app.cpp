@@ -8,8 +8,10 @@
 #include <vector>
 #include <tuple>
 
-
 #include "Application/utils.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 void SimpleShapeApplication::init() {
 
@@ -22,6 +24,8 @@ void SimpleShapeApplication::init() {
         std::cerr << "Cannot create program from " << std::string(PROJECT_DIR) + "/shaders/base_vs.glsl" << " and ";
         std::cerr << std::string(PROJECT_DIR) + "/shaders/base_fs.glsl" << " shader files" << std::endl;
     }
+
+    glEnable(GL_DEPTH_TEST);
 
     std::vector<GLfloat> vertices = {
             0.0, 1.0, 0.0, 1.0, 0.0, 0.0,
@@ -39,10 +43,19 @@ void SimpleShapeApplication::init() {
             0.0, 1.0, 0.0, 1.0, 0.0, 1.0,
             -1.0, -1.0, -1.0, 1.0, 0.0, 1.0,
             -1.0, -1.0, 1.0, 1.0, 0.0, 1.0,
+
+            -1.0, -1.0, 1.0, 1.0, 1.0, 0.0,
+            1.0, -1.0, 1.0, 1.0, 1.0, 0.0,
+            1.0, -1.0, 1.0, 1.0, 1.0, 0.0,
+
+            1.0, -1.0, -1.0, 1.0, 1.0, 0.0,
+            -1.0, -1.0, -1.0, 1.0, 1.0, 0.0,
+
+
     };
 
     std::vector<GLushort> indices = {
-            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 12
     };
 
     GLuint idx_buffer_handle;
@@ -76,6 +89,13 @@ void SimpleShapeApplication::init() {
 
     glEnableVertexAttribArray(3);
     glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(3*sizeof(GLfloat)));
+
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(3*sizeof(GLfloat)));
+
+    glEnableVertexAttribArray(5);
+    glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<GLvoid *>(3*sizeof(GLfloat)));
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
@@ -91,6 +111,6 @@ void SimpleShapeApplication::init() {
 
 void SimpleShapeApplication::frame() {
     glBindVertexArray(vao_);
-    glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_SHORT, NULL);
+    glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
 }
