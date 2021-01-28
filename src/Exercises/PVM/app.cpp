@@ -101,8 +101,8 @@ void SimpleShapeApplication::init() {
     GLuint u_buffer_handle;
     glGenBuffers(1, &u_buffer_handle);
     glBindBuffer(GL_UNIFORM_BUFFER, u_buffer_handle);
-    glBindBufferBase(GL_UNIFORM_BUFFER, u_buffer_handle, 1);
-    
+    glBindBufferBase(GL_UNIFORM_BUFFER, 1, u_buffer_handle);
+
 
     int w, h;
     std::tie(w, h) = frame_buffer_size();
