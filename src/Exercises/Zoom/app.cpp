@@ -18,7 +18,7 @@
 void SimpleShapeApplication::init() {
 
 
-    set_camera(new Camera);
+
     auto program = xe::create_program(std::string(PROJECT_DIR) + "/shaders/base_vs.glsl",
                                       std::string(PROJECT_DIR) + "/shaders/base_fs.glsl");
 
@@ -121,6 +121,8 @@ void SimpleShapeApplication::init() {
 
     glEnable(GL_DEPTH_TEST);
     glUseProgram(program);
+
+    set_camera(new Camera);
 }
 
 void SimpleShapeApplication::frame() {

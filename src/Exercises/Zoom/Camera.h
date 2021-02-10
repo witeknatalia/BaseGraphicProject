@@ -6,16 +6,6 @@
 class Camera {
 public:
 
-    float logistic(float y) {
-        return 1.0f/(1.0f+std::exp(-y));
-
-    }
-
-    float inverse_logistics(float x) {
-        return std::log(x/(1.0f-x));
-
-    }
-
     void look_at(const glm::vec3 &eye, const glm::vec3 &center, const glm::vec3 &up) {
         V_ = glm::lookAt(eye, center, up);
     }
@@ -29,6 +19,16 @@ public:
 
     void set_aspect(float aspect) {
         aspect_ = aspect;
+    }
+
+    float logistic(float y) {
+        return 1.0f/(1.0f+std::exp(-y));
+
+    }
+
+    float inverse_logistics(float x) {
+        return std::log(x/(1.0f-x));
+
     }
 
     void zoom(float y_offset) {
