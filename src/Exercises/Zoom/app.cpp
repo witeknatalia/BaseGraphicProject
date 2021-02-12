@@ -17,12 +17,8 @@
 
 void SimpleShapeApplication::init() {
 
-
-
     auto program = xe::create_program(std::string(PROJECT_DIR) + "/shaders/base_vs.glsl",
                                       std::string(PROJECT_DIR) + "/shaders/base_fs.glsl");
-
-
 
     if (!program) {
         std::cerr << "Cannot create program from " << std::string(PROJECT_DIR) + "/shaders/base_vs.glsl" << " and ";
@@ -64,9 +60,7 @@ void SimpleShapeApplication::init() {
             12, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
     };
 
-    glEnable(GL_CULL_FACE);
-    glFrontFace(GL_CCW);
-    glCullFace(GL_BACK);
+
 
     GLuint idx_buffer_handle;
     glGenBuffers(1,&idx_buffer_handle);
@@ -119,6 +113,9 @@ void SimpleShapeApplication::init() {
     std::tie(w, h) = frame_buffer_size();
     glViewport(0, 0, w, h);
 
+    glEnable(GL_CULL_FACE);
+    glFrontFace(GL_CCW);
+    glCullFace(GL_BACK);
     glEnable(GL_DEPTH_TEST);
     glUseProgram(program);
 

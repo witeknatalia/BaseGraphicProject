@@ -11,6 +11,7 @@
 #include "Application/application.h"
 #include "Application/utils.h"
 #include "Camera.h"
+#include "pyramid.h"
 
 #include "glad/glad.h"
 #include <glm/glm.hpp>
@@ -18,6 +19,7 @@
 class SimpleShapeApplication : public xe::Application {
 
 public:
+    Pyramid * pyramid;
 
     void set_camera(Camera *camera) {camera_ = camera; }
 
