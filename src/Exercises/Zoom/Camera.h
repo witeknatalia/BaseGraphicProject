@@ -39,7 +39,6 @@ public:
         fov = x*glm::pi<float>();
     }
 
-
     glm::mat4 view() const { return V_; }
     glm::mat4 projection() const { return glm::perspective(fov_, aspect_, near_, far_); }
 
@@ -50,6 +49,5 @@ private:
     float far_;
 
     glm::mat4 V_;
-
-
 };
+

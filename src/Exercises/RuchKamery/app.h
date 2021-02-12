@@ -11,17 +11,21 @@
 #include "Application/application.h"
 #include "Application/utils.h"
 #include "Camera.h"
+#include "camera_controler.h"
 
 #include "glad/glad.h"
 #include <glm/glm.hpp>
+
 
 class SimpleShapeApplication : public xe::Application {
 
 public:
 
     Camera *camera_;
+    CameraControler *controler_;
 
     void set_camera(Camera *camera) { camera_ = camera; }
+
     Camera *camera() { return camera_; }
     ~SimpleShapeApplication() {
         if (camera_) {
@@ -29,7 +33,7 @@ public:
         }
     }
 
-
+    void set_controler(CameraControler *controler) { controler_ = controler; }
 
     SimpleShapeApplication(int width, int height, std::string title, int major = 4, int minor = 1) :
             Application(width, height, title, major, minor) {}
@@ -38,6 +42,8 @@ public:
 
     void frame() override;
     void framebuffer_resize_callback(int w1, int h1) override;
+    void mouse_button_callback(int button, int action, int mods) override;
+    void cursor_position_callback(double x, double y) override;
 
     void scroll_callback(double xoffset, double yoffset) override {
         Application::scroll_callback(xoffset, yoffset);
