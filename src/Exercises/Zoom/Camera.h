@@ -3,13 +3,19 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-class Camera {
+class Camera{
 public:
 
     void look_at(const glm::vec3 &eye, const glm::vec3 &center, const glm::vec3 &up) {
         V_ = glm::lookAt(eye, center, up);
     }
 
+    float logistic(float y){
+        return 1.0f/(1.0f+std::exp(-y));
+    }
+    float inverse_logistics(float x) {
+        return std::log(x/(1.0f-x));
+    }
     void perspective(float fov, float aspect, float near, float far) {
         fov_ = fov;
         aspect_ = aspect;
@@ -21,26 +27,16 @@ public:
         aspect_ = aspect;
     }
 
-    float logistic(float y) {
-        return 1.0f/(1.0f+std::exp(-y));
-
-    }
-
-    float inverse_logistics(float x) {
-        return std::log(x/(1.0f-x));
-
-    }
-
-    void zoom(float y_offset) {
-        auto x = fov/glm::pi<float>();
-        auto y = inverse_logistic(x);
-        y += y_offset;
-        x = logistic(y);
-        fov = x * glm::pi<float>();
-    }
-
     glm::mat4 view() const { return V_; }
+
     glm::mat4 projection() const { return glm::perspective(fov_, aspect_, near_, far_); }
+    void zoom(float y_offset){
+        auto x= fov_/glm::pi<float>();
+        auto y = inverse_logistics(x);
+        y+=y_offset;
+        x=logistic(y);
+        fov_ = x*glm::pi<float>();
+    }
 
 private:
     float fov_;
@@ -49,6 +45,4 @@ private:
     float far_;
 
     glm::mat4 V_;
-
 };
-

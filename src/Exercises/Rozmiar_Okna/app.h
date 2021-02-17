@@ -6,13 +6,13 @@
 #pragma once
 
 #include <vector>
+#include <glm/mat4x4.hpp>
 
 
 #include "Application/application.h"
 #include "Application/utils.h"
 
 #include "glad/glad.h"
-#include <glm/glm.hpp>
 
 class SimpleShapeApplication : public xe::Application {
 public:
@@ -22,10 +22,12 @@ public:
     void init() override;;
 
     void frame() override;
-    void framebuffer_resize_callback(int w1, int h1) override;
 
+    void framebuffer_resize_callback(int w, int h) override;
 private:
     GLuint vao_;
+    GLuint u_pvm_buffer_;
+
     float fov_;
     float aspect_;
     float near_;
@@ -33,5 +35,5 @@ private:
 
     glm::mat4 P_;
     glm::mat4 V_;
-    GLuint u_pvm_buffer_;
+    glm::mat4 M_;
 };
