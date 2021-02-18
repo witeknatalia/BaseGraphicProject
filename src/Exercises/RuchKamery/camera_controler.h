@@ -1,14 +1,17 @@
-#pragma once
-#include <cmath>
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "Camera.h"
-
+#include "camera.h"
 
 class CameraControler {
 public:
-    CameraControler():camera_(nullptr) {}
-    CameraControler(Camera* camera):camera_(camera) {}
+    CameraControler():camera_(nullptr) {
+        LMB_pressed_ = false;
+        scale_=0.04f;
+    }
+
+    CameraControler(Camera* camera):camera_(camera) {
+        LMB_pressed_ = false;
+        scale_=0.04f;
+    }
+
     void set_camera(Camera *camera) { camera_ = camera; }
 
     void rotate_camera(float dx, float dy) {
@@ -43,8 +46,8 @@ public:
 
 private:
     Camera *camera_;
-    float scale_ = 50.5;
-    bool LMB_pressed_ = false;
-    float x_;
-    float y_;
+
+    float scale_;
+    bool LMB_pressed_;
+    float x_,y_;
 };
