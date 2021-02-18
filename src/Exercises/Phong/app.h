@@ -3,6 +3,7 @@
 //
 
 
+
 #pragma once
 
 #include <vector>
@@ -15,7 +16,17 @@
 #include "glm/glm.hpp"
 #include "camera.h"
 #include "camera_controler.h"
-#include "pyramid.h"
+//#include "pyramid.h"
+#include "quad.h"
+
+
+struct Light {
+    glm::vec4 position;
+    glm::vec4 color;
+    glm::vec4 a;
+    glm::vec4 ambient;
+};
+
 
 class SimpleShapeApplication : public xe::Application {
 public:
@@ -33,11 +44,8 @@ public:
     void cursor_position_callback(double x, double y) override;
 
     void set_camera(Camera *camera) { camera_ = camera; }
-
     void set_controler(CameraControler *controler) { controler_ = controler; }
-
-
-    Camera *camera() { return camera_; }
+    Camera * camera() { return camera_; }
     ~SimpleShapeApplication() {
         if (camera_) {
             delete camera_;
@@ -45,7 +53,7 @@ public:
     }
 
     void scroll_callback(double xoffset, double yoffset) override;
-    Pyramid * pyramid;
+    Quad *quad_;
 
 private:
     Camera * camera_;
@@ -53,4 +61,8 @@ private:
 
     GLuint vao_;
     GLuint u_pvm_buffer_;
+    GLuint u_light_buffer_;
+
+    Light light_;
+
 };

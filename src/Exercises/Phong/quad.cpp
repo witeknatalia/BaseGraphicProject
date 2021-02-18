@@ -18,10 +18,11 @@ Quad ::Quad() {
     glBindTexture(GL_TEXTURE_2D, 0);
 
     std::vector<GLfloat> vertices = {
-            -1.0, -1.0, 0.0, 0.0, 1.0, 0.0,
-            1.0, -1.0, 0.0, 0.0, 1.0, 0.0,
-            -1.0, 1.0, 0.0, 0.0, 1.0, 0.0,
-            1.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+            -1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+            1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0,
+            -1.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,
+            1.0, -1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0,
+
     };
 
 
@@ -30,7 +31,7 @@ Quad ::Quad() {
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    std::vector<GLushort> indices={0, 1, 2, 2, 1, 3};
+    std::vector<GLushort> indices={ 3, 2, 1, 0, 1, 2};
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers_[1]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW);

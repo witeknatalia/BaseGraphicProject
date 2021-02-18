@@ -87,7 +87,7 @@ void SimpleShapeApplication::init() {
 
     glBufferSubData(GL_UNIFORM_BUFFER, 0, 4 * sizeof(GLfloat), &light_.position[0]);
     glBufferSubData(GL_UNIFORM_BUFFER, 4 * sizeof(GLfloat), 4 * sizeof(GLfloat), &light_.color[0]);
-    glBufferSubData(GL_UNIFORM_BUFFER, 8 * sizeof(GLfloat), 4 * sizeof(GLfloat), &light_.light1[0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, 8 * sizeof(GLfloat), 4 * sizeof(GLfloat), &light_.a[0]);
     glBufferSubData(GL_UNIFORM_BUFFER, 12 * sizeof(GLfloat), 4 * sizeof(GLfloat), &light_.ambient[0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glBindBufferBase(GL_UNIFORM_BUFFER, 2, u_light_buffer_);
