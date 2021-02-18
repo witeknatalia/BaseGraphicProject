@@ -1,11 +1,12 @@
 
 #include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include <cmath>
 
-inline glm::mat3 rotation(float angle, const glm::vec3 &axis){
+inline glm::mat3 rotation(float angle, const glm::vec3 &axis) {
     auto u = glm::normalize(axis);
     auto s = std::sin(angle);
     auto c = std::cos(angle);
+
     return glm::mat3(
             c + u.x * u.x * (1.0f - c),
             u.y * u.x * (1.0f - c) + u.z * s,
