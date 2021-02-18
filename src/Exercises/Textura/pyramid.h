@@ -5,18 +5,10 @@
 class Pyramid {
 public:
     Pyramid();
-
-    Pyramid(const Pyramid& rhs) = delete;
-    Pyramid &operator = (const Pyramid& rhs) = delete;
-
-    void operator = (Pyramid&& rhs) = delete;
-    Pyramid(Pyramid&& rhs) = delete;
-
-    void draw();
-
     ~Pyramid();
-
+    void draw();
 private:
     GLuint vao_;
-    GLuint buffer_[2];
+    GLuint buffers_[2];
+    GLuint diffuse_texture_;
 };

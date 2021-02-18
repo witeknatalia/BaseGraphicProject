@@ -1,12 +1,10 @@
 #version 410
+
+layout(location=0) out vec4 vFragColor;
+in vec2 texture_coords;
+
 uniform sampler2D diffuse_map;
 
-layout(location=0) out vec3 Texture;
-
-in vec2 vertex_texture;
-
-
 void main() {
-    Texture = vertex_texture;
-    vFragColor = texture(color, texture_coords);
+      vFragColor = texture(diffuse_map, texture_coords);
 }
